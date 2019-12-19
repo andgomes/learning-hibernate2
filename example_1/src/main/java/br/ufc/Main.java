@@ -32,10 +32,6 @@ public class Main {
 			
 			tx.commit();
 			
-			session.close();
-			
-			session = sessionFactory.openSession();
-			
 			tx = session.beginTransaction();
 		
 			message = (Message) session.load(Message.class, 1L);
@@ -47,10 +43,6 @@ public class Main {
 			message.setNextMessage(nextMessage);
 			
 			tx.commit();
-			
-			session.close();
-			
-			session = sessionFactory.openSession();
 			
 			tx = session.beginTransaction();
 			
