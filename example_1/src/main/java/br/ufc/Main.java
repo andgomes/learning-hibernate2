@@ -12,43 +12,63 @@ import net.sf.hibernate.cfg.Configuration;
 
 public class Main {
 
+	private static SessionFactory sessionFactory;
+
 	public static void main(String[] args) {
 	
 		System.out.println("Hello Hibernate!");
 		
 		try {
-		
-			Session session = getSessionFactory().openSession();
-		
+			
+			sessionFactory = getSessionFactory();
+			
+			Session session = sessionFactory.openSession();
+			
 			Transaction tx = session.beginTransaction();
-		
+			
 			Message message = new Message("Hello World");
-		
+			
 			session.save(message);
-		
+			
 			tx.commit();
-		
+			
 			session.close();
+			
+			session = sessionFactory.openSession();
+			
+			tx = session.beginTransaction();
 		
-			Session newSession = getSessionFactory().openSession();
-		
-			Transaction newTransaction = newSession.beginTransaction();
-		
+			message = (Message) session.load(Message.class, 1L);
+			
+			message.setText("Greetings Earthling");
+			
+			Message nextMessage = new Message("Take me to your leader");
+			
+			message.setNextMessage(nextMessage);
+			
+			tx.commit();
+			
+			session.close();
+			
+			session = sessionFactory.openSession();
+			
+			tx = session.beginTransaction();
+			
 			List messages =
-				newSession.find("from Message as m order by m.text asc");
+				session.find("from Message as m order by m.text asc");
 			
 			System.out.println(messages.size() + " message(s) found:");
 			
 			for (Iterator iter = messages.iterator(); iter.hasNext();) {
 			
 				Message loadedMessage = (Message) iter.next();
-				System.out.println(message.getText());
+				System.out.println(loadedMessage.getText());
 			
 			}
 			
-			newTransaction.commit();
+			tx.commit();
 			
-			newSession.close();
+			session.close();
 		
 		} catch (HibernateException e) {
 			e.printStackTrace();
