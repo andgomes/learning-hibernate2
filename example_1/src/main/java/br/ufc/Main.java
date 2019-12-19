@@ -45,6 +45,10 @@ public class Main {
 				System.out.println(message.getText());
 			
 			}
+			
+			newTransaction.commit();
+			
+			newSession.close();
 		
 		} catch (HibernateException e) {
 			e.printStackTrace();
