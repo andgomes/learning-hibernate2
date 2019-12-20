@@ -92,7 +92,7 @@ public class Main {
 		props.put("hibernate.c3p0.max_size", "20");
 		props.put("hibernate.c3p0.timeout", "300");
 		props.put("hibernate.c3p0.max_statements", "50");
-		props.put("hibernate.c3p0.idle_test_period", 3000);
+		props.put("hibernate.c3p0.idle_test_period", "300");
 		
 		cfg.setProperties(props);
 		
