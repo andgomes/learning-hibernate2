@@ -1,6 +1,6 @@
 #commands to compile and execute
 
 javac -cp "../lib/*":"src/main/java":. src/main/java/br/ufc/*.java
-java -cp "../lib/*":"src/main/java":. br.ufc.Main
+java -cp "../lib/*":"src/main/java":"../META-INF/":. br.ufc.Main
 
 #connection properties are hardcoded in Main.java
